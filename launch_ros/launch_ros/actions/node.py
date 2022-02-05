@@ -127,6 +127,7 @@ class Node(ExecuteProcess):
         remappings: Optional[SomeRemapRules] = None,
         ros_arguments: Optional[Iterable[SomeSubstitutionsType]] = None,
         arguments: Optional[Iterable[SomeSubstitutionsType]] = None,
+        to_cloud = False,
         **kwargs
     ) -> None:
         """
@@ -234,7 +235,7 @@ class Node(ExecuteProcess):
         self.__expanded_remappings = None  # type: Optional[List[Tuple[Text, Text]]]
 
         self.__substitutions_performed = False
-
+        self.__to_cloud = to_cloud
         self.__logger = launch.logging.get_logger(__name__)
 
         self.__extensions = get_extensions(self.__logger)
@@ -354,6 +355,11 @@ class Node(ExecuteProcess):
     def node_executable(self):
         """Getter for node_executable."""
         return self.__node_executable
+
+    @property
+    def to_cloud(self):
+        """Getter for to_cloud."""
+        return self.__to_cloud
 
     @property
     def node_name(self):
